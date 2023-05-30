@@ -208,10 +208,13 @@ namespace DotNet.Testcontainers.Tests.Unit
         await container.StartAsync()
           .ConfigureAwait(false);
 
+        await Task.Delay(TimeSpan.FromSeconds(5))
+          .ConfigureAwait(false);
+
         // Then
         var fileInfo = new FileInfo(Path.Combine(TestSession.TempDirectoryPath, file));
-        Assert.True(fileInfo.Exists);
-        Assert.True(fileInfo.Length > 0);
+        Assert.True(fileInfo.Exists, "File does not exist");
+        Assert.True(fileInfo.Length > 0, "File has 0 length");
       }
 
       [Fact]
